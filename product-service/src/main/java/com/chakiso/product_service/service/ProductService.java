@@ -16,8 +16,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ProductService {
     private static final String CLASS_NAME = ProductService.class.getSimpleName();
-    @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     public void createProduct(ProductRequest productRequest) {
         Product product = Product.builder()
@@ -27,7 +31,7 @@ public class ProductService {
             .build();
         productRepository.save(product);
 
-        log.info("{0}.createProduct Product Saved", CLASS_NAME);
+        log.info("{}.createProduct Product Saved", CLASS_NAME);
     }
 
     public List<Product> getAllProducts() {

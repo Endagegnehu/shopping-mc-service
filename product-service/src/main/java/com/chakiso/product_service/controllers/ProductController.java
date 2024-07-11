@@ -27,13 +27,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Slf4j
 public class ProductController {
     private static final String CLASS_NAME = ProductController.class.getSimpleName();
-    @Autowired
     private ProductService productService;
+
+    @Autowired
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED) 
     protected void createProduct(@RequestBody ProductRequest productRequest ) {
-        log.info("{0}.createProduct Product Request: {1}", CLASS_NAME, productRequest);
+        log.info("{}.createProduct Product Request: {}", CLASS_NAME, productRequest);
         productService.createProduct(productRequest);
     }
 
